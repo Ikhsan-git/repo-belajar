@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>SEWA MOBIL</h1>
+        <div class="body-wrapper">
+        <div id="wrapper">
+            <div class="card">
+                
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <script>
+        function buildCarCard(values) {
+            const card = document.createElement('div')
+            card.setAttribute('class', 'card')
+
+            const h3 = document.createElement('h3')
+            h3.innerText = values.name
+
+            const img = document.createElement('img')
+            img.setAttribute('src', values.image ? values.image : '')
+
+            const category = document.createElement('p')
+            category.setAttribute('class', 'catagory')
+            category.innerText = values.category
+
+            const price = document.createElement('p')
+            price.setAttribute('class', 'price')
+            price.innerHTML = values.price
+
+            card.append(h3)
+            card.append(img)
+            card.append(category)
+            card.append(price)
+
+            return card
+        }
+        fetch('https://bootcamp-rent-car.herokuapp.com/admin/car')
+    .then((data)=>{
+        // console.log(data);
+        return data.json();
+        }).then((datas)=>{
+            console.log(datas[0].name);
+            let data1 ="";
+            const wrapper = document.getElementById("wrapper");
+            datas.forEach((values)=>{
+                console.log(`data ${JSON.stringify(values, null, 4)}`)
+
+               
+
+                wrapper.append(buildCarCard(values))
+               
+                // data1= `<div class="card">
+                // <h3>${values.name}</h3>
+                // <img src=${values.image} alt="img">
+                // <p class="catagory">${values.category}</p>
+                // <p class="price">${values.price}</p>
+                // </div>`;
+            });
+            //.innerHTML= data1;
+
+
+        }).catch((err)=>{
+            console.log(err);
+        });
+    </script>
+</body>
+</html>
